@@ -1,8 +1,11 @@
+package tests;
+
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 
 public class LoginTest extends BaseTest {
 
@@ -14,8 +17,8 @@ public class LoginTest extends BaseTest {
                 .sendKeys("secret_sauce");
         driver.findElement(By.xpath("//input[@id='login-button']")).click();
 
-        assertEquals("Заголовок страницы не соответствует", "Products",
-                driver.findElement(By.xpath("//*[@class='title']")).getText());
+        assertEquals(driver.findElement(By.xpath("//*[@class='title']")).getText(), "Products",
+                "Заголовок страницы не соответствует");
     }
 
     @Test
@@ -29,7 +32,7 @@ public class LoginTest extends BaseTest {
         String errorText = driver.findElement(By.xpath("//h3[@data-test='error']")).getText();
 
         assertTrue(isTitleVisible);
-        assertEquals("Текст ошибки не соответветсвует ожидаемому",
-                "Epic sadface: Username is required", errorText);
+        assertEquals(errorText, "Epic sadface: Username is required",
+                "Текст ошибки не соответветсвует ожидаемому");
     }
 }
