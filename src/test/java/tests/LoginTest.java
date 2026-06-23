@@ -1,6 +1,5 @@
 package tests;
 
-import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -12,19 +11,20 @@ public class LoginTest extends BaseTest {
     @Test
     public void checkLogin() {
         loginPage.open();
-        loginPage.login();
+        loginPage.login("standard_user", "secret_sauce");
 
-        //assertEquals(productsPage.getTitle(), "Products",
-                //"Заголовок страницы не соответствует");
+        assertEquals(productsPage.getTitle(), "Products", "Заголовок страницы не соответствует");
     }
 
     @Test
     public void checkIncorrectLogin() {
 
         loginPage.open();
+        loginPage.login("", "secret_sauce");
 
-        //assertTrue(isTitleVisible);
-        //assertEquals(errorText, "Epic sadface: Username is required",
-                //"Текст ошибки не соответветсвует ожидаемому");
+        assertTrue(loginPage.isErrorDisplayed());
+        assertEquals(loginPage.getErrorText(), "Epic sadface: Username is required",
+                "Текст ошибки не соответветсвует ожидаемому");
     }
 }
+
