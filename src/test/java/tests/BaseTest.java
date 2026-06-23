@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import pages.LoginPage;
 import pages.ProductsPage;
 
+
 import java.time.Duration;
 
 public class BaseTest {
@@ -16,15 +17,17 @@ public class BaseTest {
     ProductsPage productsPage;
 
 
+
     @BeforeMethod
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
-        options.addArguments("headless");
         options.addArguments("--guest");
         driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
 
+        loginPage = new LoginPage(driver);
+        productsPage = new ProductsPage(driver);
     }
 
     @AfterMethod

@@ -4,28 +4,27 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class LoginPage {
+    private final By loginInput = By.xpath("//input[@placeholder='Username']");
+    private final By passwordInput = By.xpath("//input[@placeholder='Password']");
+    private final By submitButton = By.xpath("//input[@placeholder='Password']");
     WebDriver driver;
 
-    public LoginPage(WebDriver driver){
-
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
     }
-    public void open(){
+
+    public void open() {
         driver.get("https://saucedemo.com/");
-
     }
 
-    protected void login(){
-        driver.findElement(By.xpath("//input[@placeholder='Username']"))
-                .sendKeys("standard_user");
-        driver.findElement(By.xpath("//input[@placeholder='Password']"))
-                .sendKeys("secret_sauce");
-        driver.findElement(By.xpath("//input[@id='login-button']")).click();
-
-
+    public void login() {
+        driver.findElement(loginInput).sendKeys("standard_user");
+        driver.findElement(passwordInput).sendKeys("secret_sauce");
+        driver.findElement(submitButton).click();
     }
-//    assertEquals("Заголовок страницы не соответствует", "Products",
-//                 driver.findElement(By.xpath("//*[@class='title']")).getText());
 
-
+    public String getTitle() {
+        return driver.findElement(By.xpath("//*[@class='title']")).getText();
     }
 }
+
