@@ -15,4 +15,3 @@ public class ProductsPage {
         return driver.findElement(title).getText();
     }
 }
-

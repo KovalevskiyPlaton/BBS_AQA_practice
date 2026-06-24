@@ -32,4 +32,3 @@ public class LoginPage {
         return driver.findElement(error).getText();
     }
 }
-/*Дописать на параметризаию  1) locked_user, 2) пароль с большой буквы, 3) пустой пароль, 4) логин с большйо буквы*/
