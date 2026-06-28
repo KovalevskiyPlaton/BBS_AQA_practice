@@ -1,5 +1,6 @@
 package tests;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -16,53 +17,22 @@ public class LoginTest extends BaseTest {
         assertEquals(productsPage.getTitle(), "Products", "Заголовок страницы не соответствует");
     }
 
-    @Test
-    public void checkIncorrectEmptyLogin() {
-        loginPage.open();
-        loginPage.login("", "secret_sauce");
-
-        assertTrue(loginPage.isErrorDisplayed());
-        assertEquals(loginPage.getErrorText(), "Epic sadface: Username is required",
-                "Текст ошибки не соответветсвует ожидаемому");
+    @DataProvider(name = "incorrectLoginData")
+    public Object[][] loginData() {
+        return new Object[][]{
+                {"", "secret_sauce", "Epic sadface: Username is required"},
+                {"standard_user", "", "Epic sadface: Password is required"},
+                {"Standard_user", "secret_sauce", upperCharTextErPassLogin},
+                {"standard_user", "Secret_sauce", upperCharTextErPassLogin},
+                {"locked_out_user", "secret_sauce", "Epic sadface: Sorry, this user has been locked out."},
+        };
     }
 
-    @Test
-    public void checkIncorrectLockedUser() {
+    @Test(dataProvider = "incorrectLoginData")
+    public void checkIncorrectLogin(String user, String password, String errorMassage) {
         loginPage.open();
-        loginPage.login("locked_out_user", "secret_sauce");
-
+        loginPage.login(user, password);
         assertTrue(loginPage.isErrorDisplayed());
-        assertEquals(loginPage.getErrorText(), "Epic sadface: Sorry, this user has been locked out.",
-                "Текст ошибки не соответветсвует ожидаемому");
-    }
-
-    @Test
-    public void checkIncorrectIsFirstCharUpperPassword() {
-        loginPage.open();
-        loginPage.login("standard_user", "Secret_sauce");
-
-        assertTrue(loginPage.isErrorDisplayed());
-        assertEquals(loginPage.getErrorText(), upperCharTextErPassLogin,
-                "Текст ошибки не соответветсвует ожидаемому");
-    }
-
-    @Test
-    public void checkIncorrectIsFirstCharUpperLogin() {
-        loginPage.open();
-        loginPage.login("Standard_user", "secret_sauce");
-
-        assertTrue(loginPage.isErrorDisplayed());
-        assertEquals(loginPage.getErrorText(), upperCharTextErPassLogin,
-                "Текст ошибки не соответветсвует ожидаемому");
-    }
-
-    @Test
-    public void checkIncorrectEmptyPassword() {
-        loginPage.open();
-        loginPage.login("standard_user", "");
-
-        assertTrue(loginPage.isErrorDisplayed());
-        assertEquals(loginPage.getErrorText(), "Epic sadface: Password is required",
-                "Текст ошибки не соответветсвует ожидаемому");
+        assertEquals(loginPage.getErrorText(), errorMassage, "Текст ошибки не соответветсвует ожидаемому");
     }
 }
