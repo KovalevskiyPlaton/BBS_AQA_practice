@@ -3,6 +3,7 @@ package tests;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import user.UserFactory;
+import static enums.ProdutsTitlesNaming.*;
 
 import java.util.List;
 
@@ -20,9 +21,9 @@ public class OrderTest extends BaseTest {
                 .open()
                 .login(UserFactory.withAdminPremission());
         List<String> goodsList = List.of(
-                "Sauce Labs Bolt T-Shirt",
-                "Sauce Labs Onesie",
-                "Test.allTheThings() T-Shirt (Red)");
+                TSHIRT.getDisplayName(),
+                ONISE.getDisplayName(),
+                REDTSHIRT.getDisplayName());
         for (String goods : goodsList) {
             productsPage.addGoodsToCart(goods);
         }

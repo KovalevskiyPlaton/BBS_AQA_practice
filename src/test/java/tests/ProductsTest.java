@@ -6,6 +6,7 @@ import user.UserFactory;
 import java.util.List;
 
 import static enums.TitleNaming.PRODUCTS;
+import static enums.ProdutsTitlesNaming.*;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
@@ -13,9 +14,9 @@ public class ProductsTest extends BaseTest {
     @Test
     public void checkGoodsAdded() {
         List<String> goodsList = List.of(
-                "Sauce Labs Bolt T-Shirt",
-                "Sauce Labs Bike Light",
-                "Test.allTheThings() T-Shirt (Red)");
+                TSHIRT.getDisplayName(),
+                LIGHT.getDisplayName(),
+                REDTSHIRT.getDisplayName());
 
         System.out.println("ProductsTest is running in the Thread: " + Thread.currentThread().getId());
         loginPage

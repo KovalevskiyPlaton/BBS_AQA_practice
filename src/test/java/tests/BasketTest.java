@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import user.UserFactory;
 
 import static enums.TitleNaming.CARTS;
+import static enums.ProdutsTitlesNaming.*;
 import static org.testng.Assert.assertTrue;
 
 import java.util.List;
@@ -14,9 +15,9 @@ public class BasketTest extends BaseTest {
     @Test
     public void testBasketPage() {
         List<String> goodsList = List.of(
-                "Sauce Labs Bolt T-Shirt",
-                "Sauce Labs Onesie",
-                "Test.allTheThings() T-Shirt (Red)");
+                TSHIRT.getDisplayName(),
+                ONISE.getDisplayName(),
+                REDTSHIRT.getDisplayName());
 
         System.out.println("BasketTest is running in the Thread: " + Thread.currentThread().getId());
         loginPage.open();

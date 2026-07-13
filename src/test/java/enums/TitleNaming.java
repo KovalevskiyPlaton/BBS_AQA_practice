@@ -15,5 +15,4 @@ public enum TitleNaming {
     public String getDisplayName() {
         return displayName;
     }
-
 }
