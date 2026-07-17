@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import user.UserFactory;
 
@@ -10,7 +11,16 @@ import static enums.ProdutsTitlesNaming.*;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+@Epic("Блок добавления товара в корзину")
+@Feature("Добавление товаров в корзину и проверка валидации полученных данных")
+
 public class ProductsTest extends BaseTest {
+
+    @Story("Добавление товаров в корзину по их наименованию, индексу")
+    @Owner("Kovalevskiy P.V. soulshon@yandex.ru")
+    @Severity(SeverityLevel.CRITICAL)
+    @TmsLink("BBS_AQA_practice")
+    @Issue("BBS_herokuapp_pract")
     @Test
     public void checkGoodsAdded() {
         List<String> goodsList = List.of(

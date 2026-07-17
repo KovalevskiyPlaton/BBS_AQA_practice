@@ -1,22 +1,24 @@
 package tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Step;
+import io.qameta.allure.testng.AllureTestNg;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.ITestContext;
+import org.testng.annotations.*;
 import pages.BasketPage;
 import pages.LoginPage;
 import pages.OrderPage;
 import pages.ProductsPage;
+import utils.TestListener;
 
 import java.time.Duration;
 
+@Listeners({AllureTestNg.class, TestListener.class})
 public class BaseTest {
     WebDriver driver;
     LoginPage loginPage;
@@ -25,9 +27,10 @@ public class BaseTest {
     OrderPage orderPage;
 
 
+    @Step("Открыте браузера")
     @Parameters({"browser"})
     @BeforeMethod
-    public void setUp(@Optional("chrome") String browser) {
+    public void setUp(@Optional("chrome") String browser, ITestContext context) {
         if (browser.equalsIgnoreCase("chrome")) {
             System.setProperty("webdriver.chrome.driver",
                     "C:\\Users\\soulshon\\chrome-for-testing\\chromedriver-win64\\chromedriver.exe");
@@ -46,12 +49,14 @@ public class BaseTest {
         }
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
+        context.setAttribute("driver", driver);
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
         basketPage = new BasketPage(driver);
         orderPage = new OrderPage(driver);
     }
 
+    @Step("Закрытие браузера")
     @AfterMethod
     public void closeBrowser() {
         driver.quit();
