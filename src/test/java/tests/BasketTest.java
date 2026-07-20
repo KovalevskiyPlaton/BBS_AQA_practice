@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import user.UserFactory;
 
@@ -11,7 +12,17 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
+@Epic("Блок корзина товаров")
+@Feature("Сравнение наименований товаров положенных в корзину на странице 'Products' с наименованиями товаров, " +
+        "которые отображаются на странице 'Your Cart'")
+
 public class BasketTest extends BaseTest {
+
+    @Story("Сравнение коллекций полученных на странице 'Your Cart' и 'Products'")
+    @Owner("Kovalevskiy P.V. soulshon@yandex.ru")
+    @Severity(SeverityLevel.NORMAL)
+    @TmsLink("BBS_AQA_practice")
+    @Issue("BBS_herokuapp_pract")
     @Test
     public void testBasketPage() {
         List<String> goodsList = List.of(

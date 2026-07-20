@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import user.UserFactory;
@@ -11,10 +12,18 @@ import static enums.TitleNaming.COMPLETED;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+@Epic("Блок оформления заказа")
+@Feature("Ввод данных в форму оформления заказа и проверка валидации полученных данных")
+
 public class OrderTest extends BaseTest {
     public List<String> corrdetData = List.of("Stanislav", "Ishvant", "2341234");
     public List<String> inCorrdZipCodeField = List.of("Valter", "Diesel", "/////");
 
+    @Story("Набор данных для оформления заказа. Полный цикл воспроизведения")
+    @Owner("Kovalevskiy P.V. soulshon@yandex.ru")
+    @Severity(SeverityLevel.BLOCKER)
+    @TmsLink("BBS_AQA_practice")
+    @Issue("BBS_herokuapp_pract")
     @Test
     public void orderCorrectDataTest() {
         loginPage
@@ -45,6 +54,11 @@ public class OrderTest extends BaseTest {
         orderPage.goHomePage();
     }
 
+    @Story("Набор данных для заполнения формы доставки")
+    @Owner("Kovalevskiy P.V. soulshon@yandex.ru")
+    @Severity(SeverityLevel.CRITICAL)
+    @TmsLink("BBS_AQA_practice")
+    @Issue("BBS_herokuapp_pract")
     @Test
     public void checkOrdersInCorrectZipCodeField() {
         loginPage
@@ -74,6 +88,11 @@ public class OrderTest extends BaseTest {
         };
     }
 
+    @Story("Проверка сообщений о вводе некорректных данных")
+    @Owner("Kovalevskiy P.V. soulshon@yandex.ru")
+    @Severity(SeverityLevel.NORMAL)
+    @TmsLink("BBS_AQA_practice")
+    @Issue("BBS_herokuapp_pract")
     @Test(dataProvider = "checkOrdersInCorrectEmptyFields")
     public void checkOrdersInCorrectEmptyFields
             (String dataFirst, String dataLast, String dataZipCode, String errorMassage) {

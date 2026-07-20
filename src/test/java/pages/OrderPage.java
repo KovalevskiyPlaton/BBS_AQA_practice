@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -25,58 +26,70 @@ public class OrderPage extends BasePage {
         return this;
     }
 
-    public void fastAllFields(String dataFirst, String dataLast, String dataZipCode){
+    @Step("Быстрое заполнение полей формы заказа: Имя - {dataFirst}, Фамилия - {dataLast}, Индекс - {dataZipCode}")
+    public void fastAllFields(String dataFirst, String dataLast, String dataZipCode) {
         fillInFirstNameField(dataFirst);
         fillInLastNameField(dataLast);
         fillInPostalField(dataZipCode);
     }
 
+    @Step("Заполнение поля формы заказа: Имя - {firstName}")
     public OrderPage fillInFirstNameField(String firstName) {
         driver.findElement(firstNameInput).sendKeys(firstName);
         return this;
     }
 
+    @Step("Заполнение поля формы заказа: Фамилия - {lastName}")
     public OrderPage fillInLastNameField(String lastName) {
         driver.findElement(lastNameInput).sendKeys(lastName);
         return this;
     }
 
+    @Step("Заполнение поля формы заказа: Индекс - {zipCode}")
     public OrderPage fillInPostalField(String zipCode) {
         driver.findElement(postalCodeInput).sendKeys(zipCode);
         return this;
     }
 
+    @Step("Клик по кнопке 'Continue'")
     public OrderPage submitOrderButton() {
         driver.findElement(submitButton).click();
         return this;
     }
 
+    @Step("Получить текст суммы предварительного заказа")
     public String getTextItemSum() {
         return driver.findElement(ItemTotal).getText();
     }
 
+    @Step("Получить текст итоговый суммы заказа включая налог")
     public String getTotalSum() {
         return driver.findElement(TotalSum).getText();
     }
 
+    @Step("Получить текст суммы налога")
     public String getTaxSum() {
         return driver.findElement(taxSum).getText();
     }
 
+    @Step("Клик по кнопке 'Finish'")
     public OrderPage submitFinishButton() {
         driver.findElement(finishButton).click();
         return this;
     }
 
+    @Step("Получить текст успешного форомления заказа")
     public String getTitleCompletedText() {
         return driver.findElement(completedTitleText).getText();
     }
 
+    @Step("Получить текущий текст ошибки по заполнению полей в адресе доставки")
     public String getErrorMessage() {
         return driver.findElement(errorMessage).getText();
     }
 
-    public void goHomePage(){
+    @Step("Переход на главную страницу")
+    public void goHomePage() {
         driver.findElement(buttonHome).click();
     }
 }
